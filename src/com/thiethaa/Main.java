@@ -25,18 +25,33 @@ public class Main {
         System.out.println("\nremove duplicate:");
         System.out.println("arrSort:");
         int arrNoDupLen=removeDuplicate(arrSort, n);
+        //create new array to store uniq el
+        int[]unique = new int[arrNoDupLen];
         for(int i=0; i<arrNoDupLen;i++){
+            //assing uniq element to new array
+            unique[i]=arrSort[i];
             System.out.print(arrSort[i]+",");
         }
         System.out.println("\narr2Sort:");
         int arr2NoDupLen=removeDuplicate(arr2Sort, n2);
+        //create new array to store uniq el
+        int[]unique2 = new int[arr2NoDupLen];
+
         for(int i=0; i<arr2NoDupLen;i++){
+            //assing uniq element to new array
+            unique2[i]=arr2Sort[i];
             System.out.print(arr2Sort[i]+",");
         }
 
+        //find missing number on the uniq array
+        System.out.println("\nthe missing number of uniq array is: ");
+        int missNo=findOneMissingNo(unique,unique.length);
+        System.out.println(missNo);
 
-        //find missing number
-        System.out.println("\nthe missing number are: ");
+        System.out.println("\nthe missing number of uniq2 array is: ");
+        int lastEl= unique2[unique2.length-1];
+       findmultipleMissingNo(unique2,lastEl);
+
     }
 
     public static int[] sortArray(int[] a, int n) {
@@ -68,5 +83,27 @@ public class Main {
             a[j]=temp[j];
         }
         return d;
+    }
+
+    public static int findOneMissingNo(int[]a,int n){
+        //sumarize all the element then substract the total with the index
+        int total = (n+1)*(n+2)/2;
+        for(int i=0; i<n;i++){
+            total-=a[i];
+        }
+       return total;
+    }
+
+    public static void findmultipleMissingNo(int[]a,int n){
+        //create vektor array to mark present elemen
+        boolean [] mark= new boolean[n+1];
+        for(int i=0; i<a.length;i++){
+            mark[a[i]]=true;
+        }
+        for(int j=1; j<n;j++){
+            if(!mark[j]){
+                System.out.print(j+",");
+            }
+        }
     }
 }
